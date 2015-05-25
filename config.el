@@ -422,7 +422,7 @@
 (setq org-agenda-files (list 
                              ;; "~/cwboot/work/"
                              "~/cwboot/blog/planning2015.org"
-                             "~/.emacs.d/emacs-init.org" 
+;;                             "~/.emacs.d/emacs-init.org" 
                              "~/cwboot/work/Personal.org" 
                              "~/cwboot/work/jd.org"
                            ))
@@ -728,7 +728,7 @@
 ; Targets complete directly with IDO
 (setq org-outline-path-complete-in-steps nil)
 
-(setq org-plantuml-jar-path "~/java/plantuml.8024.jar")
+(setq org-plantuml-jar-path "~/.emacs.d/private/org-config/plantuml.jar")
 
 (setq org-protocol-default-template-key "w")
 
