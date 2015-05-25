@@ -970,8 +970,15 @@ last month with the Category Foo."
 (add-hook 'org-after-todo-state-change-hook
           'sacha/org-clock-out-if-oktoday)
 
-(defun org-clocktable-indent-string (level)
-  (if (= level 1) ""
-    (let ((str " "))
-      (dotimes (k (1- level) str)
-        (setq str (concat "--" str))))))
+;; to remove '\emsp' from clock report but preserve indentation?
+;;http://emacs.stackexchange.com/questions/9528/is-it-possible-to-remove-emsp-from-clock-report-but-preserve-indentation
+(defun my-org-clocktable-indent-string (level)
+  (if (= level 1)
+      ""
+    (let ((str "^"))
+      (while (> level 2)
+        (setq level (1- level)
+              str (concat str "--")))
+      (concat str "-> "))))
+
+(advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
