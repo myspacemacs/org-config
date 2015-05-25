@@ -762,3 +762,216 @@ Late deadlines first, then scheduled, then non-late deadlines"
   (interactive)
   (org-mark-subtree)
   (org-mime-subtree))
+(defun sacha/org-agenda-clock (match)
+  ;; Find out when today is
+  (let* ((inhibit-read-only t))
+    (goto-char (point-max))
+    (org-dblock-write:clocktable
+     `(:scope agenda
+              :maxlevel 8
+              :block today
+              :formula %
+              :compact t
+             :fileskip0
+             :narrow 150!
+              ))))
+
+(defun cw/org-agenda-clock (match)
+  ;; Find out when today is
+  (let* ((inhibit-read-only t))
+    (goto-char (point-max))
+    (org-dblock-write:clocktable
+     `(:scope agenda
+              :maxlevel 8
+              :block today
+              :compact t
+             :fileskip0
+              :narrow 150!
+              ))))
+
+
+(defun cw/tasks-last-week ()
+  "Produces an org agenda tags view list of all the tasks completed
+last week."
+
+  (interactive)
+    (org-tags-view nil
+          (concat
+
+           (format-time-string "+CLOSED>=\"[%Y-%m-%d]\"" (time-subtract (current-time)
+                                                  (seconds-to-time (* 7 24 60 60))))
+           (format-time-string "+CLOSED<=\"[%Y-%m-%d]\""  (current-time)))))
+
+(defun cw/tasks-last-month ()
+  "Produces an org agenda tags view list of all the tasks completed
+last month with the Category Foo."
+  (interactive)
+    (org-tags-view nil
+          (concat
+           (format-time-string "+CLOSED>=\"[%Y-%m-%d]\"" (time-subtract (current-time)
+                                                  (seconds-to-time (* 30 24 60 60))))
+           (format-time-string "+CLOSED<=\"[%Y-%m-%d]\""  (current-time)))))
+
+(defun cw/tasks-last-year ()
+  "Produces an org agenda tags view list of all the tasks completed
+last month with the Category Foo."
+
+  (interactive)
+    (org-tags-view nil
+          (concat
+
+           (format-time-string "+CLOSED>=\"[%Y-%m-%d]\"" (time-subtract (current-time)
+                                                  (seconds-to-time (* 365 24 60 60))))
+           (format-time-string "+CLOSED<=\"[%Y-%m-%d]\""  (current-time)))))
+
+
+(defun clocktable-by-tag/insert-tag (params)
+  (insert "\n")
+  (let ((total 0))
+    (mapcar
+     (lambda (file)
+       (let ((clock-data (with-current-buffer (find-file-noselect file)
+                           (org-clock-get-table-data (buffer-name) params))))
+         (when (> (nth 1 clock-data) 0)
+           (setq total (+ total (nth 1 clock-data)))
+
+           (dolist (entry (nth 2 clock-data))
+             (insert (format "  %s%s\n"
+                             (org-clocktable-indent-string (nth 0 entry))
+                             (nth 1 entry)
+                             ))))))
+     (org-agenda-files))
+    )
+  )
+
+(defun cw-org-agenda-clock-by-tag (match)
+  (let* ((inhibit-read-only t))
+    (goto-char (point-max))
+    (clocktable-by-tag/insert-tag
+     `(:scope agenda
+              :block today
+              ))))
+
+
+(defun cw/org-agenda-clock-daily-report (match)
+  (let* ((inhibit-read-only t))
+    (goto-char (point-max))
+    (insert  "\n\n今天完成的工作:\n")
+    (clocktable-by-tag/insert-tag
+     `(:scope agenda
+              :block today
+              :maxlevel 8
+              )
+     )
+    )
+  )
+
+(defun cw/org-agenda-clock-thisweek (match)
+  (let* ((inhibit-read-only t))
+    (goto-char (point-max))
+    (insert  "\n\n这周完成的工作:\n")
+    (clocktable-by-tag/insert-tag
+     `(:scope agenda
+              :block thisweek
+              :maxlevel 8
+              )
+     )
+    )
+  )
+
+
+(defun cw/org-agenda-clock-lastweek (match)
+  (let* ((inhibit-read-only t))
+    (goto-char (point-max))
+    (insert  "\n\n上周完成的工作:\n")
+    (clocktable-by-tag/insert-tag
+     `(:scope agenda
+              :block lastweek
+              )
+     )
+    )
+  )
+
+(defun cw/org-agenda-clock-thismonth (match)
+  ;; Find out when today is
+  (let* ((inhibit-read-only t))
+    (goto-char (point-max))
+    (insert  "\n\nTasks done in this month:\n")
+    (org-dblock-write:clocktable
+     `(:scope agenda
+       :maxlevel 8
+           :block thismonth
+           :formula %
+           :compact t
+           :fileskip0
+           :narrow 150!
+;;           :link t
+       ))))
+
+
+
+(defun cw/org-agenda-clock-lastQ (match)
+  ;; Find out when today is
+  (let* ((inhibit-read-only t))
+    (goto-char (point-max))
+    (insert  "\n\n上季度Q完成的工作:\n")
+    (org-dblock-write:clocktable
+     `(:scope agenda
+       :maxlevel 8
+           ;; :block 2014-Q2
+           :tstart "<-3m>" 
+           :tend "<now>"
+           :formula %
+           :compact t
+           :narrow 150!
+;;           :link t
+       ))))
+
+(defun cw/org-agenda-clock-thisyear (match)
+  ;; Find out when today is
+  (let* ((inhibit-read-only t))
+    (goto-char (point-max))
+    (insert  "\n\nTasks done in this year:\n")
+    (org-dblock-write:clocktable
+     `(:scope agenda
+       :maxlevel 8
+           :block thisyear
+           :formula %
+           :compact t
+           :narrow 150!
+;;           :link t
+       ))))
+
+;; GTD 提醒
+(defun sacha/org-clock-in-if-starting ()
+  "Clock in when the task is marked STARTED."
+  (when  (string= org-state "STARTED")
+    (org-clock-in)
+))
+
+(add-hook 'org-after-todo-state-change-hook
+          'sacha/org-clock-in-if-starting)
+
+(defadvice org-clock-in (after sacha activate)
+  "Set this task's status to 'STARTED'."
+  (org-todo "STARTED"))
+
+(defun sacha/org-clock-out-if-waiting ()
+  "Clock in when the task is marked STARTED."
+  (when  (string= org-state "WAITING")
+    (org-clock-out)))
+(add-hook 'org-after-todo-state-change-hook
+          'sacha/org-clock-out-if-waiting)
+
+(defun sacha/org-clock-out-if-oktoday ()
+  "clock out  when the task is marked OKTODAY."
+  (when (string= org-state "OKTODAY")
+    (org-clock-out)))
+(add-hook 'org-after-todo-state-change-hook
+          'sacha/org-clock-out-if-oktoday)
+
+(defun org-clocktable-indent-string (level)
+  (if (= level 1) ""
+    (let ((str " "))
+      (dotimes (k (1- level) str)
+        (setq str (concat "--" str))))))

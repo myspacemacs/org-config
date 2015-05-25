@@ -316,7 +316,33 @@
 
 ;; Custom agenda command definitions
 (setq org-agenda-custom-commands
-      (quote (("N" "Notes" tags "NOTE"
+      (quote (
+              ("x" "My custom agenda"
+               (
+                (sacha/org-agenda-clock)
+                (todo "OKTODAY" )
+                (todo "STARTED")
+                (org-agenda-list nil nil 1)
+                ;;          (sacha/org-agenda-load)
+                (todo "WAITING")
+                (todo "DELEGATED" )
+
+                (todo "TODO")
+                ;;          (tags "PROJECT")
+                ;;          (tags "PROJECT-WAITING")
+                (todo "MAYBE")
+                )
+               )
+              ("o" "overview"
+               ((todo "WAITING" )
+                (cw/org-agenda-clock-daily-report)
+                (cw/org-agenda-clock-thisweek)
+                (cw/org-agenda-clock-thismonth)
+                (cw/org-agenda-clock-lastQ)
+                (cw/org-agenda-clock-thisyear)
+                )
+               )
+              ("N" "Notes" tags "NOTE"
                ((org-agenda-overriding-header "Notes")
                 (org-tags-match-list-sublevels t)))
               ("h" "Habits" tags-todo "STYLE=\"habit\""
@@ -388,14 +414,18 @@
                        (org-tags-match-list-sublevels nil))))
                nil))))
 
-(setq org-agenda-diary-file "~/git/org/diary.org")
+(setq org-agenda-diary-file "~/cwboot/diary.org")
 
 ;; Do not dim blocked tasks
 (setq org-agenda-dim-blocked-tasks nil)
-
-(setq org-agenda-files (quote ("~/git/org"
-                               "~/git/org/learn"
-                               "~/git/org/research")))
+(setq org-pretty-entities t)
+(setq org-agenda-files (list 
+                             ;; "~/cwboot/work/"
+                             "~/cwboot/blog/planning2015.org"
+                             "~/.emacs.d/emacs-init.org" 
+                             "~/cwboot/work/Personal.org" 
+                             "~/cwboot/work/jd.org"
+                           ))
 
 (setq org-agenda-include-diary nil)
 
