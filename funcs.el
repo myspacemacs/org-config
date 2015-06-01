@@ -869,7 +869,7 @@ last month with the Category Foo."
 (defun cw/org-agenda-clock-thisweek (match)
   (let* ((inhibit-read-only t))
     (goto-char (point-max))
-    (insert  "\n\n这周完成的工作:\n")
+    (insert  "\n\n一、本周工作回顾\n")
     (clocktable-by-tag/insert-tag
      `(:scope agenda
               :block thisweek
@@ -878,6 +878,19 @@ last month with the Category Foo."
      )
     )
   )
+(defun cw/org-agenda-clock-nextweek (match)
+  (let* ((inhibit-read-only t))
+    (goto-char (point-max))
+    (insert  "\n\n二、下周工作重点\n")
+    (clocktable-by-tag/insert-tag
+     `(:scope agenda
+              :tags "PROJECT"
+              :maxlevel 1
+              )
+     )
+    )
+  )
+
 
 
 (defun cw/org-agenda-clock-lastweek (match)
@@ -899,14 +912,14 @@ last month with the Category Foo."
     (insert  "\n\nTasks done in this month:\n")
     (org-dblock-write:clocktable
      `(:scope agenda
-       :maxlevel 8
-           :block thismonth
-           :formula %
-           :compact t
-           :fileskip0
-           :narrow 150!
-;;           :link t
-       ))))
+              :maxlevel 8
+              :block thismonth
+              :formula %
+              :compact t
+              :fileskip0
+              :narrow 150!
+              ;;           :link t
+              ))))
 
 
 
@@ -917,15 +930,15 @@ last month with the Category Foo."
     (insert  "\n\n上季度Q完成的工作:\n")
     (org-dblock-write:clocktable
      `(:scope agenda
-       :maxlevel 8
-           ;; :block 2014-Q2
-           :tstart "<-3m>" 
-           :tend "<now>"
-           :formula %
-           :compact t
-           :narrow 150!
-;;           :link t
-       ))))
+              :maxlevel 8
+              ;; :block 2014-Q2
+              :tstart "<-3m>" 
+              :tend "<now>"
+              :formula %
+              :compact t
+              :narrow 150!
+              ;;           :link t
+              ))))
 
 (defun cw/org-agenda-clock-thisyear (match)
   ;; Find out when today is
@@ -934,13 +947,13 @@ last month with the Category Foo."
     (insert  "\n\nTasks done in this year:\n")
     (org-dblock-write:clocktable
      `(:scope agenda
-       :maxlevel 8
-           :block thisyear
-           :formula %
-           :compact t
-           :narrow 150!
-;;           :link t
-       ))))
+              :maxlevel 8
+              :block thisyear
+              :formula %
+              :compact t
+              :narrow 150!
+              ;;           :link t
+              ))))
 
 ;; GTD 提醒
 (defun sacha/org-clock-in-if-starting ()
@@ -964,8 +977,8 @@ last month with the Category Foo."
           'sacha/org-clock-out-if-waiting)
 
 (defun sacha/org-clock-out-if-oktoday ()
-  "clock out  when the task is marked OKTODAY."
-  (when (string= org-state "OKTODAY")
+  "clock out  when the task is marked NEXT."
+  (when (string= org-state "NEXT")
     (org-clock-out)))
 (add-hook 'org-after-todo-state-change-hook
           'sacha/org-clock-out-if-oktoday)

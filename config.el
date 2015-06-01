@@ -320,7 +320,7 @@
               ("x" "My custom agenda"
                (
                 (sacha/org-agenda-clock)
-                (todo "OKTODAY" )
+                (todo "NEXT" )
                 (todo "STARTED")
                 (org-agenda-list nil nil 1)
                 ;;          (sacha/org-agenda-load)
@@ -337,9 +337,17 @@
                ((todo "WAITING" )
                 (cw/org-agenda-clock-daily-report)
                 (cw/org-agenda-clock-thisweek)
+                (cw/org-agenda-clock-nextweek)
                 (cw/org-agenda-clock-thismonth)
                 (cw/org-agenda-clock-lastQ)
                 (cw/org-agenda-clock-thisyear)
+                )
+               )
+              ("q" "test"
+               ((tags 'PROJECT+TODO="NEXT"'
+                      ((org-agenda-overriding-header "二、下周工作重点")
+                       (org-agenda-skip-function 'jw/skip-non-projects)
+                       (org-tags-match-list-sublevels nil)))
                 )
                )
               ("N" "Notes" tags "NOTE"
@@ -420,11 +428,12 @@
 (setq org-agenda-dim-blocked-tasks nil)
 (setq org-pretty-entities t)
 (setq org-agenda-files (list 
-                             ;; "~/cwboot/work/"
-                             "~/cwboot/blog/planning2015.org"
-;;                             "~/.emacs.d/emacs-init.org" 
-                             "~/cwboot/work/Personal.org" 
-                             "~/cwboot/work/jd.org"
+                        "~/cwboot/work/"
+                        "~/cwboot/blog/"
+                           ;;;  "~/cwboot/blog/planning2015.org"
+                        ;;                             "~/.emacs.d/emacs-init.org" 
+                           ;;  "~/cwboot/work/Personal.org" 
+                           ;;  "~/cwboot/work/jd.org"
                            ))
 
 (setq org-agenda-include-diary nil)
@@ -516,21 +525,21 @@
 
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates
-      (quote (("t" "todo" entry (file "~/git/org/refile.org")
+      (quote (("t" "todo" entry (file "~/cwboot/work/jd.org")
                "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("r" "respond" entry (file "~/git/org/refile.org")
+              ("r" "respond" entry (file "~/cwboot/work/jd.org")
                "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-              ("n" "note" entry (file "~/git/org/refile.org")
+              ("n" "note" entry (file "~/cwboot/work/jd.org")
                "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("j" "Journal" entry (file+datetree "~/git/org/diary.org")
+              ("j" "Journal" entry (file+datetree "~/cwboot/work/jd.org")
                "* %?\n%U\n" :clock-in t :clock-resume t)
-              ("w" "org-protocol" entry (file "~/git/org/refile.org")
+              ("w" "org-protocol" entry (file "~/cwboot/work/jd.org")
                "* TODO Review %c\n%U\n" :immediate-finish t)
-              ("m" "Meeting" entry (file "~/git/org/refile.org")
+              ("m" "Meeting" entry (file "~/cwboot/work/jd.org")
                "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-              ("p" "Phone call" entry (file "~/git/org/refile.org")
+              ("p" "Phone call" entry (file "~/cwboot/work/jd.org")
                "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-              ("h" "Habit" entry (file "~/git/org/refile.org")
+              ("h" "Habit" entry (file "~/cwboot/work/jd.org")
                "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
 (setq org-catch-invisible-edits 'error)
@@ -590,9 +599,9 @@
 
 (setq org-deadline-warning-days 30)
 
-(setq org-default-notes-file "~/git/org/refile.org")
+(setq org-default-notes-file "~/cwboot/work/jd.org")
 
-(setq org-directory "~/git/org")
+(setq org-directory "~/cwboot")
 
 (setq org-ditaa-jar-path "~/git/org-mode/contrib/scripts/ditaa.jar")
 
@@ -1075,3 +1084,5 @@
 
 (setq require-final-newline t)
 
+
+(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . web-mode))
