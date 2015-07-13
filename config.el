@@ -1060,7 +1060,7 @@
               ("PHONE" :foreground "forest green" :weight bold))))
 
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+      (quote ((sequence "TODO(t)" "STARTED(s)" "NEXT(n)" "|" "DONE(d)")
               (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
 
 (setq org-todo-state-tags-triggers
@@ -1086,3 +1086,89 @@
 
 
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . web-mode))
+;;Org 写文档和记笔记
+(setq op/site-main-title "简单")
+(setq op/site-sub-title "让生活更精彩。")
+(setq op/site-domain "http://standino.github.io/")
+(setq op/personal-github-link "https://github.com/standino")
+(setq op/personal-disqus-shortname "standino")
+(setq op/personal-google-analytics-id "UA-46515756-1")
+(setq op/repository-org-branch "master")  ;; default is "source"
+(setq op/repository-html-branch "master") ;; default is "master"
+(setq op/repository-directory  "~/cwboot/" )
+(setq op/category-config-alist
+      '(("blog" ;; this is the default configuration
+         :show-meta t
+         :show-comment t
+         :uri-generator op/generate-uri
+         :uri-template "/blog/html/%y/%m/%d/%t/"
+         :sort-by :date       ;; how to sort the posts
+         :category-index t)   ;; generate category index or not
+        ("work"
+         :show-meta t
+         :show-comment t
+         :uri-generator op/generate-uri
+        :uri-template "/work/%t/"
+         :sort-by :mod-date
+         :category-index t)
+        ("index"
+         :show-meta nil
+         :show-comment t
+         :uri-generator op/generate-uri
+         :uri-template "/"
+         :sort-by :date
+         :category-index nil)
+        ("about"
+         :show-meta nil
+         :show-comment nil
+         :uri-generator op/generate-uri
+         :uri-template "/about/"
+         :sort-by :date
+         :category-index nil)))
+
+(defun cw/pub-all ()
+  (interactive)
+
+  (op/do-publication nil "HEAD~1" "~/standino.github.com/" nil)
+
+  (op/do-publication nil "HEAD~1" "~/myblog/" nil)
+)
+(setq org-ditaa-jar-path "~/.emacs.d/lib/ditaa.jar")
+(setq org-plantuml-jar-path "~/.emacs.d/lib/plantuml.jar")
+(add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
+
+; Make babel results blocks lowercase
+(setq org-babel-results-keyword "results")
+
+(defun bh/display-inline-images ()
+  (condition-case nil
+      (org-display-inline-images)
+    (error nil)))
+
+(org-babel-do-load-languages
+ (quote org-babel-load-languages)
+ (quote ((emacs-lisp . t)
+         (dot . t)
+         (ditaa . t)
+         (R . t)
+         (python . t)
+         (ruby . t)
+         (gnuplot . t)
+         (clojure . t)
+         (sh . t)
+         (ledger . t)
+         (org . t)
+         (plantuml . t)
+         (latex . t))))
+
+; Do not prompt to confirm evaluation
+; This may be dangerous - make sure you understand the consequences
+; of setting this -- see the docstring for details
+(setq org-confirm-babel-evaluate nil)
+
+; Use fundamental mode when editing plantuml blocks with C-c '
+(add-to-list 'org-src-lang-modes (quote ("plantuml" . fundamental)))
+;; 设置自己的的主题
+
+(setq op/theme-root-directory "~/.emacs.d/themes")
+(setq op/theme 'sb-admin-2)
