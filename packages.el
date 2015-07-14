@@ -16,8 +16,8 @@
     bbdb
     boxquote
     cdlatex
-    org-plus-contrib
     org-page
+    org-plus-contrib
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -52,6 +52,12 @@ which require an initialization must be listed explicitly in the list.")
   "Initialize org-plus-contrib"
   (use-package org-plus-contrib
     :defer t))
+
+(defun jw/init-org-page ()
+  "Initialize org-page"
+  (use-package org-page
+    :defer t))
+
 
 ;; Often the body of an initialize function uses `use-package'
 ;; For more info on `use-package', see readme:
