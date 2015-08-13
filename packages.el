@@ -10,20 +10,20 @@
 ;;
 ;;; License: GPLv3
 
-(defvar jw-packages
+(setq jw-packages
   '(
     ;; package jws go here
     bbdb
     boxquote
     cdlatex
     org-page
+    ledger-mode
     org-plus-contrib
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    zotelo
+    ox-md
+    ))
 
-(defvar jw-excluded-packages '()
-  "List of packages to exclude.")
+(setq jw-excluded-packages '())
 
 ;; For each package, define a function jw/init-<package-jw>
 ;;
@@ -48,15 +48,33 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init (add-hook 'org-mode-hook 'turn-on-org-cdlatex)))
 
+(defun jw/init-ledger-mode ()
+  "Initialize ledger-mode"
+  (use-package ledger-mode
+    :defer t))
+
 (defun jw/init-org-plus-contrib ()
   "Initialize org-plus-contrib"
   (use-package org-plus-contrib
     :defer t))
 
+
 (defun jw/init-org-page ()
   "Initialize org-page"
   (use-package org-page
     :defer t))
+
+(defun jw/init-zotelo ()
+  "Initialize zotelo"
+  (use-package zotelo
+    :defer t))
+
+(defun jw/init-ox-md ()
+  "Initialize ox-md"
+  (use-package ox-md
+    :defer t))
+
+
 
 
 ;; Often the body of an initialize function uses `use-package'

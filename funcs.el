@@ -995,3 +995,75 @@ last month with the Category Foo."
       (concat str "-> "))))
 
 (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
+
+(defun jw/auto-tex-cmd (latex)
+  "When exporting from .org with latex, automatically run latex,
+     pdflatex, or xelatex as appropriate, using latexmk."
+  (let ((texcmd))
+    ;; default command: oldstyle latex via dvi
+    (setq texcmd '("latexmk -dvi -pdfps -quiet %f"
+                   "latexmk -c"))
+    ;; pdflatex -> .pdf
+    (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
+        (setq texcmd '("latexmk -pdf -quiet %f"
+                       "latexmk -c")))
+    ;; xelatex -> .pdf
+    (if (string-match "LATEX_CMD: xelatex" (buffer-string))
+        (setq texcmd '("latexmk -pdflatex=xelatex -pdf -quiet %f"
+                       "latexmk -c")))
+    ;; xelatex -> .pdf (beamer)
+    (if (string-match "STARTUP: beamer" (buffer-string))
+        (setq texcmd '("latexmk -pdflatex=xelatex -pdf -quiet %f"
+                       "latexmk -c")))
+    ;; LaTeX compilation command
+    (setq org-latex-pdf-process texcmd)))
+
+(defun jw/auto-tex-parameters (latex)
+  "Automatically select the tex packages to include."
+  ;; default packages for ordinary latex or pdflatex export
+  (setq org-latex-default-packages-alist
+        '(("AUTO" "inputenc"  t)
+          ("T1"   "fontenc"   t)
+          (""     "fixltx2e"  nil)
+          (""     "wrapfig"   nil)
+          (""     "soul"      t)
+          (""     "textcomp"  t)
+          (""     "marvosym"  t)
+          (""     "wasysym"   t)
+          (""     "latexsym"  t)
+          (""     "amssymb"   t)
+          (""     "lmodern"   t)
+          (""     "hyperref"  nil)))
+
+  ;; Packages to include when xelatex is used
+  (if (string-match "LATEX_CMD: xelatex" (buffer-string))
+      (setq org-latex-default-packages-alist
+            '(
+              ("" "rotating" t)
+              ("" "soul" t)
+              ("" "url" t)
+              ("" "zhfontcfg" t)
+              ("" "zhparcfg" t)
+              ("xetex" "hyperref" nil)
+              )))
+
+  (if (string-match "LATEX_CMD: xelatex" (buffer-string))
+      (setq org-latex-classes
+            (cons '("cnbook"
+                    ("\\part{%s}" . "\\part*{%s}")
+                    ("\\chapter{%s}" . "\\chapter*{%s}")
+                    ("\\section{%s}" . "\\section*{%s}")
+                    ("\\subsection{%s}" . "\\subsection*{%s}")
+                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
+                  org-latex-classes)))
+
+  (if (string-match "STARTUP: beamer" (buffer-string))
+      (setq org-latex-default-packages-alist
+            '(
+              ("" "beamerthemesplit" nil)
+              ("" "zhfontcfg" t)))))
+
+(defun jw/read-date ()
+  "Parse date for capturing ledger entries via org mode"
+  (replace-regexp-in-string "-" "/" (org-read-date)))
+

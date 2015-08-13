@@ -73,6 +73,8 @@
 (add-hook 'org-babel-after-execute-hook 'jw/display-inline-images 'append)
 (add-hook 'org-clock-out-hook 'jw/clock-out-maybe 'append)
 (add-hook 'org-clock-out-hook 'jw/remove-empty-drawer-on-clock-out 'append)
+(add-hook 'org-export-before-processing-hook 'jw/auto-tex-cmd 'append)
+(add-hook 'org-export-before-processing-hook 'jw/auto-tex-parameters 'append)
 ; Rebuild the reminders everytime the agenda is displayed
 (add-hook 'org-finalize-agenda-hook 'jw/org-agenda-to-appt 'append)
 (add-hook 'org-insert-heading-hook 'jw/insert-heading-inactive-timestamp 'append)
@@ -274,12 +276,12 @@
          (emacs-lisp . t)
          (gnuplot . t)
          (latex . t)
+         (ledger . t)
          (org . t)
          (plantuml . t)
          (python . t)
          (sh . t)
          ;; (clojure . t)
-         ;; (ledger . t)
          ;; (ruby . t)
          )))
 
@@ -518,6 +520,11 @@
 ; Make babel results blocks lowercase
 (setq org-babel-results-keyword "results")
 
+(setq org-beamer-environments-extra (quote
+                                     (("onlyenv" "O"
+                                       "\\begin{onlyenv}%a"
+                                       "\\end{onlyenv}"))))
+
 (setq org-blank-before-new-entry (quote ((heading)
                                          (plain-list-item . auto))))
 
@@ -539,8 +546,16 @@
                "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
               ("p" "Phone call" entry (file "~/cwboot/work/jd.org")
                "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-              ("h" "Habit" entry (file "~/cwboot/work/jd.org")
+             ("h" "Habit" entry (file "~/cwboot/work/jd.org")
                "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
+              ("l" "Ledger entries")
+              ("lm" "CCB" plain (file "~/git/ledger")
+               "%(jw/read-date) %^{Payee} Liabilities:CCB Expenses:%^{Account}  %^{Amount} "
+               :empty-lines 1)
+              ("lc" "Cash" plain (file "~/git/ledger")
+               "%(jw/read-date) * %^{Payee} Expenses:Cash Expenses:%^{Account}  %^{Amount} "
+               :empty-lines 1)
+              )))
 
 (setq org-catch-invisible-edits 'error)
 
@@ -687,6 +702,20 @@
 (setq org-insert-heading-respect-content nil)
 
 (setq org-latex-listings t)
+
+;; Specify default packages to be included in every tex file, whether pdflatex or xelatex
+(setq org-latex-packages-alist
+      '(
+        ("" "array" nil)
+        ("" "booktabs" nil)
+        ("" "float" nil)
+        ("" "graphicx" t)
+        ("" "longtable" nil)
+        ("" "multirow" nil)
+        ("" "siunitx" nil)
+        ("" "tabulary" nil)
+        ("flushleft" "threeparttable" nil)
+        ))
 
 (setq org-link-frame-setup (quote ((vm . vm-visit-folder)
                                    (gnus . org-gnus-no-new-news)
