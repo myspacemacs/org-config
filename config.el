@@ -23,6 +23,8 @@
 ;; (require 'ox-html)
 ;; (require 'ox-latex)
 
+(require 'ox-md)
+;;(require 'org-page)
 ;;;; Hooks
 (add-hook 'message-mode-hook
           '(lambda () (setq fill-column 72))
@@ -547,7 +549,7 @@
               ("p" "Phone call" entry (file "~/cwboot/work/jd.org")
                "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
              ("h" "Habit" entry (file "~/cwboot/work/jd.org")
-               "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
+               "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n")
               ("l" "Ledger entries")
               ("lm" "CCB" plain (file "~/git/ledger")
                "%(jw/read-date) %^{Payee} Liabilities:CCB Expenses:%^{Account}  %^{Amount} "
@@ -1162,8 +1164,8 @@
 
   (op/do-publication nil "HEAD~1" "~/myblog/" nil)
 )
-(setq org-ditaa-jar-path "~/.emacs.d/lib/ditaa.jar")
-(setq org-plantuml-jar-path "~/.emacs.d/lib/plantuml.jar")
+;;(setq org-ditaa-jar-path "~/.emacs.d/lib/ditaa.jar")
+;;(setq org-plantuml-jar-path "~/.emacs.d/lib/plantuml.jar")
 (add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
 
 ; Make babel results blocks lowercase
