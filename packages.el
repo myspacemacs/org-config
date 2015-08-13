@@ -19,7 +19,7 @@
     ledger-mode
     org-plus-contrib
     zotelo
-    ox-gfm
+ ;;   ox-gfm
     org-page
     ))
 
@@ -71,16 +71,16 @@
   (use-package zotelo
     :defer t))
 
-(defun org-config/init-ox-gfm ()
-  "Initialize ox-gfm"
-  (use-package ox-gfm
-    :defer t
-    :init (require 'ox-gfm)
- ))
+;; (defun org-config/init-ox-gfm ()
+;;   "Initialize ox-gfm"
+;;   (use-package ox-gfm
+;;     :defer t
+;;     :init (require 'ox-gfm)
+;; ))
 
 
 
 
-;; Often the body of an initialize function uses `use-package'
+;; often the body of an initialize function uses `use-package'
 ;; For more info on `use-package', see readme:
 ;; https://github.com/org-configiegley/use-package

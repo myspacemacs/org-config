@@ -1124,8 +1124,8 @@
 (setq op/personal-github-link "https://github.com/standino")
 (setq op/personal-disqus-shortname "standino")
 (setq op/personal-google-analytics-id "UA-46515756-1")
-(setq op/repository-org-branch "master")  ;; default is "source"
-(setq op/repository-html-branch "master") ;; default is "master"
+(setq op/repository-org-branch "dev")  ;; default is "source"
+(setq op/repository-html-branch "dev") ;; default is "master"
 (setq op/repository-directory  "~/cwboot/" )
 (setq op/category-config-alist
       '(("blog" ;; this is the default configuration
@@ -1201,5 +1201,5 @@
 (add-to-list 'org-src-lang-modes (quote ("plantuml" . fundamental)))
 ;; 设置自己的的主题
 
-(setq op/theme-root-directory "~/.emacs.d/themes")
+(setq op/theme-root-directory "~/.emacs.d/private/org-config/themes")
 (setq op/theme 'sb-admin-2)
