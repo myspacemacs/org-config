@@ -15,11 +15,11 @@
     ;; package org-configs go here
     bbdb
     boxquote
-    ;; cdlatex
+    cdlatex
     ledger-mode
     org-plus-contrib
     zotelo
- ;;   ox-gfm
+    ox-gfm
     org-page
     ))
 
@@ -71,12 +71,12 @@
   (use-package zotelo
     :defer t))
 
-;; (defun org-config/init-ox-gfm ()
-;;   "Initialize ox-gfm"
-;;   (use-package ox-gfm
-;;     :defer t
-;;     :init (require 'ox-gfm)
-;; ))
+(defun org-config/init-ox-gfm ()
+  "Initialize ox-gfm"
+  (use-package ox-gfm
+    :defer t
+    :init (require 'ox-gfm)
+))
 
 
 

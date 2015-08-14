@@ -14,17 +14,14 @@
 ;; (require 'bbdb-com)
 (require 'ob)
 (require 'org)
-;; (require 'org-checklist)
 (require 'org-crypt)
-;; (require 'org-id)
-;; (require 'org-mime)
-;; (require 'org-protocol)
-;; (require 'ox-ascii)
-;; (require 'ox-html)
-;; (require 'ox-latex)
+ (require 'org-id)
+ (require 'org-protocol)
+ (require 'ox-ascii)
+ (require 'ox-html)
+ (require 'ox-latex)
 
 (require 'ox-md)
-;;(require 'org-page)
 ;;;; Hooks
 (add-hook 'message-mode-hook
           '(lambda () (setq fill-column 72))
