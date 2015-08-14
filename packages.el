@@ -17,10 +17,10 @@
     boxquote
     cdlatex
     ledger-mode
-    org-plus-contrib
     zotelo
     ox-gfm
     org-page
+    org-plus-contrib
     ))
 
 (setq org-config-excluded-packages '())
@@ -53,12 +53,6 @@
   (use-package ledger-mode
     :defer t))
 
-(defun org-config/init-org-plus-contrib ()
-  "Initialize org-plus-contrib"
-  (use-package org-plus-contrib
-    :defer t))
-
-
 (defun org-config/init-org-page ()
   "Initialize org-page"
   (use-package org-page
@@ -77,8 +71,10 @@
     :defer t
     :init (require 'ox-gfm)
 ))
-
-
+(defun org-config/init-org-plus-contrib ()
+  "Initialize org-plus-contrib"
+  (use-package org-plus-contrib
+    :defer t))
 
 
 ;; often the body of an initialize function uses `use-package'

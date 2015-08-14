@@ -13,7 +13,7 @@
 ;; (require 'bbdb)
 ;; (require 'bbdb-com)
 (require 'ob)
-(require 'org)
+;; (require 'org)
 (require 'org-crypt)
  (require 'org-id)
  (require 'org-protocol)
