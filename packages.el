@@ -1,4 +1,4 @@
-;;; packages.el --- jw Layer packages File for Spacemacs
+;;; packages.el --- org-config Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -10,55 +10,73 @@
 ;;
 ;;; License: GPLv3
 
-(defvar jw-packages
+(setq org-config-packages
   '(
-    ;; package jws go here
+    ;; package org-configs go here
     bbdb
     boxquote
     cdlatex
+    ledger-mode
+    zotelo
+    ox-gfm
     org-page
     org-plus-contrib
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
 
-(defvar jw-excluded-packages '()
-  "List of packages to exclude.")
+(setq org-config-excluded-packages '())
 
-;; For each package, define a function jw/init-<package-jw>
+;; For each package, define a function org-config/init-<package-org-config>
 ;;
-;; (defun jw/init-my-package ()
+;; (defun org-config/init-my-package ()
 ;;   "Initialize my package"
 ;;   )
 ;;
 
-(defun jw/init-bbdb ()
+(defun org-config/init-bbdb ()
   "Initialize bbdb"
   (use-package bbdb
     :defer t))
 
-(defun jw/init-boxquote ()
+(defun org-config/init-boxquote ()
   "Initialize boxquote"
   (use-package boxquote
     :defer t))
 
-(defun jw/init-cdlatex ()
+(defun org-config/init-cdlatex ()
   "Initialize cdlatex"
   (use-package cdlatex
     :defer t
     :init (add-hook 'org-mode-hook 'turn-on-org-cdlatex)))
 
-(defun jw/init-org-plus-contrib ()
+(defun org-config/init-ledger-mode ()
+  "Initialize ledger-mode"
+  (use-package ledger-mode
+    :defer t))
+
+(defun org-config/init-org-page ()
+  "Initialize org-page"
+  (use-package org-page
+     :defer t
+     :init (require 'org-page)
+    ))
+
+(defun org-config/init-zotelo ()
+  "Initialize zotelo"
+  (use-package zotelo
+    :defer t))
+
+(defun org-config/init-ox-gfm ()
+  "Initialize ox-gfm"
+  (use-package ox-gfm
+    :defer t
+    :init (require 'ox-gfm)
+))
+(defun org-config/init-org-plus-contrib ()
   "Initialize org-plus-contrib"
   (use-package org-plus-contrib
     :defer t))
 
-(defun jw/init-org-page ()
-  "Initialize org-page"
-  (use-package org-page
-    :defer t))
 
-
-;; Often the body of an initialize function uses `use-package'
+;; often the body of an initialize function uses `use-package'
 ;; For more info on `use-package', see readme:
-;; https://github.com/jwiegley/use-package
+;; https://github.com/org-configiegley/use-package
