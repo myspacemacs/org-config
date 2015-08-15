@@ -1079,6 +1079,7 @@
 
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "red" :weight bold)
+              ("STARTED" :foreground "green" :weight bold)
               ("NEXT" :foreground "blue" :weight bold)
               ("DONE" :foreground "forest green" :weight bold)
               ("WAITING" :foreground "orange" :weight bold)
@@ -1154,24 +1155,12 @@
          :sort-by :date
          :category-index nil)))
 
-(defun cw/pub-all ()
-  (interactive)
-
-  (op/do-publication nil "HEAD~1" "~/standino.github.com/" nil)
-
-  (op/do-publication nil "HEAD~1" "~/myblog/" nil)
-)
 ;;(setq org-ditaa-jar-path "~/.emacs.d/lib/ditaa.jar")
 ;;(setq org-plantuml-jar-path "~/.emacs.d/lib/plantuml.jar")
 (add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
 
 ; Make babel results blocks lowercase
 (setq org-babel-results-keyword "results")
-
-(defun bh/display-inline-images ()
-  (condition-case nil
-      (org-display-inline-images)
-    (error nil)))
 
 (org-babel-do-load-languages
  (quote org-babel-load-languages)
@@ -1200,3 +1189,15 @@
 
 (setq op/theme-root-directory "~/.emacs.d/private/org-config/themes")
 (setq op/theme 'sb-admin-2)
+
+(add-hook 'org-after-todo-state-change-hook 'sacha/org-clock-in-if-starting)
+
+(add-hook 'org-after-todo-state-change-hook    'sacha/org-clock-out-if-waiting)
+
+(add-hook 'org-after-todo-state-change-hook  'sacha/org-clock-out-if-oktoday)
+
+(defadvice org-clock-in (after sacha activate)
+  "Set this task's status to 'STARTED'."
+  (org-todo "STARTED"))
+
+(advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)

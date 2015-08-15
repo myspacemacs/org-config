@@ -169,11 +169,6 @@ A prefix arg forces clock in of the default task."
     (org-with-point-at clock-in-to-task
       (org-clock-in nil))))
 
-(defun jw/init-cdlatex ()
-  "Initialize cdlatex"
-  (use-package cdlatex
-    :init (add-hook 'org-mode-hook 'turn-on-org-cdlatex)))
-
 ;; Phone capture template handling with BBDB lookup
 ;; Adapted from code by Gregory J. Grubbs
 (defun jw/phone-call ()
@@ -962,26 +957,16 @@ last month with the Category Foo."
     (org-clock-in)
 ))
 
-(add-hook 'org-after-todo-state-change-hook
-          'sacha/org-clock-in-if-starting)
-
-(defadvice org-clock-in (after sacha activate)
-  "Set this task's status to 'STARTED'."
-  (org-todo "STARTED"))
 
 (defun sacha/org-clock-out-if-waiting ()
   "Clock in when the task is marked STARTED."
   (when  (string= org-state "WAITING")
     (org-clock-out)))
-(add-hook 'org-after-todo-state-change-hook
-          'sacha/org-clock-out-if-waiting)
 
 (defun sacha/org-clock-out-if-oktoday ()
   "clock out  when the task is marked NEXT."
   (when (string= org-state "NEXT")
     (org-clock-out)))
-(add-hook 'org-after-todo-state-change-hook
-          'sacha/org-clock-out-if-oktoday)
 
 ;; to remove '\emsp' from clock report but preserve indentation?
 ;;http://emacs.stackexchange.com/questions/9528/is-it-possible-to-remove-emsp-from-clock-report-but-preserve-indentation
@@ -994,7 +979,6 @@ last month with the Category Foo."
               str (concat str "--")))
       (concat str "-> "))))
 
-(advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
 
 (defun jw/auto-tex-cmd (latex)
   "When exporting from .org with latex, automatically run latex,
@@ -1066,4 +1050,14 @@ last month with the Category Foo."
 (defun jw/read-date ()
   "Parse date for capturing ledger entries via org mode"
   (replace-regexp-in-string "-" "/" (org-read-date)))
+
+(defun cw/pub-all ()
+  (interactive)
+  (op/do-publication nil "HEAD~1" "~/standino.github.com/" nil)
+  (op/do-publication nil "HEAD~1" "~/myblog/" nil)
+  )
+(defun bh/display-inline-images ()
+  (condition-case nil
+      (org-display-inline-images)
+    (error nil)))
 
