@@ -1,7 +1,7 @@
 
 
 参考这篇文档： http://doc.norang.ca/org-mode.html
-My day goes generally like this:
+* My day goes generally like this:
 
 - Punch in with =F9-I= (this starts the clock on the default task)
 - Look at the agenda and make a mental note of anything important to deal with today
@@ -43,7 +43,16 @@ I'll work on this file in the following sequence:
    I work on Task 1 and mark it =DONE=.  This clocks out =Task 1= and moves
    the clock to =Project A=.  Now I work on =Task 2= and clock that in.
 
+* Reports
 
+To get a report of time spent on tasks for =XYZ.org= you simply visit
+the =XYZ.org= file and run an agenda clock report for the last month
+with =F12 < a v m b R=.  This limits the agenda to this one file,
+shows the agenda for a full month, moves to last month, and generates
+a clock report.
+
+
+* Key bindings
 | Key     | For                                             | Used       |
 |---------+-------------------------------------------------+------------|
 | F12     | Agenda (1 key less than C-c a)                  | Very Often |

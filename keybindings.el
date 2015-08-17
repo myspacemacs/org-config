@@ -47,3 +47,8 @@
 (global-set-key (kbd "<f9> p") 'jw/phone-call)
 (global-set-key (kbd "<C-f6>") '(lambda () (interactive) (bookmark-set "SAVED")))
 (global-set-key (kbd "<f6>") '(lambda () (interactive) (bookmark-jump "SAVED")))
+
+(evil-leader/set-key "oc" 'org-capture)
+(evil-leader/set-key "oa" 'org-agenda)
+(evil-leader/set-key "oI" 'jw/punch-in)
+(evil-leader/set-key "oO" 'jw/punch-out)

@@ -318,22 +318,22 @@
 ;; Custom agenda command definitions
 (setq org-agenda-custom-commands
       (quote (
-              ("x" "My custom agenda"
-               (
-                (sacha/org-agenda-clock)
-                (todo "NEXT" )
-                (todo "STARTED")
-                (org-agenda-list nil nil 1)
-                ;;          (sacha/org-agenda-load)
-                (todo "WAITING")
-                (todo "DELEGATED" )
+             ;; ("x" "My custom agenda"
+             ;;  (
+             ;;   (sacha/org-agenda-clock)
+             ;;   (todo "NEXT" )
+             ;;   (todo "STARTED")
+             ;;   (org-agenda-list nil nil 1)
+             ;;   ;;          (sacha/org-agenda-load)
+             ;;   (todo "WAITING")
+             ;;   (todo "DELEGATED" )
 
-                (todo "TODO")
-                ;;          (tags "PROJECT")
-                ;;          (tags "PROJECT-WAITING")
-                (todo "MAYBE")
-                )
-               )
+             ;;   (todo "TODO")
+             ;;   ;;          (tags "PROJECT")
+             ;;   ;;          (tags "PROJECT-WAITING")
+             ;;   (todo "MAYBE")
+             ;;   )
+             ;;  )
               ("o" "overview"
                ((todo "WAITING" )
                 (cw/org-agenda-clock-daily-report)
