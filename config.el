@@ -434,7 +434,7 @@
                            ;;;  "~/cwboot/blog/planning2015.org"
                         ;;                             "~/.emacs.d/emacs-init.org" 
                            ;;  "~/cwboot/work/Personal.org" 
-                           ;;  "~/cwboot/work/jd.org"
+                           ;;  "~/cwboot/work/refile.org"
                            ))
 
 (setq org-agenda-include-diary nil)
@@ -531,21 +531,21 @@
 
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates
-      (quote (("t" "todo" entry (file "~/cwboot/work/jd.org")
+      (quote (("t" "todo" entry (file "~/cwboot/work/refile.org")
                "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("r" "respond" entry (file "~/cwboot/work/jd.org")
+              ("r" "respond" entry (file "~/cwboot/work/refile.org")
                "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-              ("n" "note" entry (file "~/cwboot/work/jd.org")
+              ("n" "note" entry (file "~/cwboot/work/refile.org")
                "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("j" "Journal" entry (file+datetree "~/cwboot/work/jd.org")
+              ("j" "Journal" entry (file+datetree "~/cwboot/work/diary.org")
                "* %?\n%U\n" :clock-in t :clock-resume t)
-              ("w" "org-protocol" entry (file "~/cwboot/work/jd.org")
+              ("w" "org-protocol" entry (file "~/cwboot/work/refile.org")
                "* TODO Review %c\n%U\n" :immediate-finish t)
-              ("m" "Meeting" entry (file "~/cwboot/work/jd.org")
+              ("m" "Meeting" entry (file "~/cwboot/work/refile.org")
                "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-              ("p" "Phone call" entry (file "~/cwboot/work/jd.org")
+              ("p" "Phone call" entry (file "~/cwboot/work/refile.org")
                "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-             ("h" "Habit" entry (file "~/cwboot/work/jd.org")
+             ("h" "Habit" entry (file "~/cwboot/work/refile.org")
                "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n")
               ("l" "Ledger entries")
               ("lm" "CCB" plain (file "~/git/ledger")
@@ -613,7 +613,7 @@
 
 (setq org-deadline-warning-days 30)
 
-(setq org-default-notes-file "~/cwboot/work/jd.org")
+(setq org-default-notes-file "~/cwboot/work/refile.org")
 
 (setq org-directory "~/cwboot")
 
@@ -1079,7 +1079,7 @@
 
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "red" :weight bold)
-              ("STARTED" :foreground "green" :weight bold)
+;;              ("STARTED" :foreground "green" :weight bold)
               ("NEXT" :foreground "blue" :weight bold)
               ("DONE" :foreground "forest green" :weight bold)
               ("WAITING" :foreground "orange" :weight bold)
@@ -1190,14 +1190,14 @@
 (setq op/theme-root-directory "~/.emacs.d/private/org-config/themes")
 (setq op/theme 'sb-admin-2)
 
-(add-hook 'org-after-todo-state-change-hook 'sacha/org-clock-in-if-starting)
+;;(add-hook 'org-after-todo-state-change-hook 'sacha/org-clock-in-if-starting)
 
-(add-hook 'org-after-todo-state-change-hook    'sacha/org-clock-out-if-waiting)
+;;(add-hook 'org-after-todo-state-change-hook    'sacha/org-clock-out-if-waiting)
 
-(add-hook 'org-after-todo-state-change-hook  'sacha/org-clock-out-if-oktoday)
+;;(add-hook 'org-after-todo-state-change-hook  'sacha/org-clock-out-if-oktoday)
 
-(defadvice org-clock-in (after sacha activate)
-  "Set this task's status to 'STARTED'."
-  (org-todo "STARTED"))
+;;(defadvice org-clock-in (after sacha activate)
+;;  "Set this task's status to 'STARTED'."
+;;  (org-todo "STARTED"))
 
 (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
