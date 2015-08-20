@@ -52,3 +52,6 @@
 (evil-leader/set-key "oa" 'org-agenda)
 (evil-leader/set-key "oI" 'jw/punch-in)
 (evil-leader/set-key "oO" 'jw/punch-out)
+(evil-leader/set-key "op" 'cw/pub-all)
+(evil-leader/set-key "ob" 'org-iswitchb)
+

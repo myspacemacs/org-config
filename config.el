@@ -431,10 +431,6 @@
 (setq org-agenda-files (list 
                         "~/cwboot/work/"
                         "~/cwboot/blog/"
-                           ;;;  "~/cwboot/blog/planning2015.org"
-                        ;;                             "~/.emacs.d/emacs-init.org" 
-                           ;;  "~/cwboot/work/Personal.org" 
-                           ;;  "~/cwboot/work/refile.org"
                            ))
 
 (setq org-agenda-include-diary nil)
