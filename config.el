@@ -13,13 +13,13 @@
 ;; (require 'bbdb)
 ;; (require 'bbdb-com)
 (require 'ob)
-;; (require 'org)
+(require 'org)
 (require 'org-crypt)
- (require 'org-id)
- (require 'org-protocol)
- (require 'ox-ascii)
- (require 'ox-html)
- (require 'ox-latex)
+;; (require 'org-id)
+;; (require 'org-protocol)
+;; (require 'ox-ascii)
+;; (require 'ox-html)
+;; (require 'ox-latex)
 
 (require 'ox-md)
 ;;;; Hooks
@@ -587,7 +587,6 @@
 
 (setq org-directory "~/cwboot")
 
-(setq org-ditaa-jar-path "~/git/org-mode/contrib/scripts/ditaa.jar")
 
 ;; Separate drawers for clocking and logs
 (setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
@@ -736,7 +735,7 @@
 (setq org-outline-path-complete-in-steps nil)
 
 (setq org-plantuml-jar-path "~/.emacs.d/private/org-config/plantuml.jar")
-
+(setq org-ditaa-jar-path "~/.emacs.d/private/org-config/ditaa.jar")
 (setq org-protocol-default-template-key "w")
 
 ;; ;; List of projects
@@ -1084,7 +1083,6 @@
 (setq require-final-newline t)
 
 
-(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . web-mode))
 ;;Org 写文档和记笔记
 (setq op/site-main-title "简单")
 (setq op/site-sub-title "让生活更精彩。")
@@ -1125,12 +1123,7 @@
          :sort-by :date
          :category-index nil)))
 
-;;(setq org-ditaa-jar-path "~/.emacs.d/lib/ditaa.jar")
-;;(setq org-plantuml-jar-path "~/.emacs.d/lib/plantuml.jar")
-; Use fundamental mode when editing plantuml blocks with C-c '
-(add-to-list 'org-src-lang-modes (quote ("plantuml" . fundamental)))
 ;; 设置自己的的主题
-
 (setq op/theme-root-directory "~/.emacs.d/private/org-config/themes")
 (setq op/theme 'sb-admin-2)
 
@@ -1157,6 +1150,7 @@
          (dot . t)
          (ditaa . t)
          (R . t)
+         (java . t)
          (python . t)
          (ruby . t)
          (gnuplot . t)
@@ -1171,3 +1165,5 @@
  ; of setting this -- see the docstring for details
 (setq org-confirm-babel-evaluate nil)
 
+
+(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . web-mode))
