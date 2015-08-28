@@ -14,23 +14,33 @@
   <!-- /.navbar-top-links -->
   <script>
    function goSearch(){
-     $('#s').val($('#s').val()+' site:{{site-domain}}');
+       if($('#searchInSite').is(':checked')){
+           $('#s').val($('#s').val()+'   site:{{site-domain}}');
+       }
    }
   </script>
   <div class="navbar-default sidebar" role="navigation">
-    <div class="sidebar-nav navbar-collapse">
-      <ul class="nav" id="side-menu">
-        <li class="sidebar-search">
-          <form method="get" id="searchform" onsubmit="goSearch()" action="http://search.aol.com/aol/search">
-            <div class="input-group custom-search-form">
-              <input type="text" class="form-control" name="q" id="s" value="">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="submit">
-                  <i class="fa fa-search"></i>
-                </button>
-              </span>
-            </div>
-          </form>
+      <div class="sidebar-nav navbar-collapse">
+          <ul class="nav" id="side-menu">
+              <li class="sidebar-search">
+                  <form method="get" class="form-inline" id="searchform" onsubmit="goSearch()" target="_blank" action="http://search.aol.com/aol/search">
+                      <div class="form-group">
+                          <label class="sr-only" for="s">Search inputbox</label>
+                          <input type="text" class="form-control" name="q" id="s" value="">
+
+                      </div>
+                      <div class="checkbox">
+                          <label>
+                              <input type="checkbox" id="searchInSite"> 本站搜索
+                          </label>
+                      </div>
+                      <!-- <span class="input-group-btn">
+                      <button class="btn btn-default" type="submit">
+                      <i class="fa fa-search"></i>
+                      </button>
+                      </span>
+                      -->
+                  </form>
           <!-- /input-group -->
         </li>
 
