@@ -14,7 +14,9 @@
   <!-- /.navbar-top-links -->
   <script>
    function goSearch(){
-     $('#s').val($('#s').val()+' site:{{site-domain}}');
+       if($('#searchInSite').checked){
+           $('#s').val($('#s').val()+' site:{{site-domain}}');
+       }
    }
   </script>
   <div class="navbar-default sidebar" role="navigation">
@@ -24,6 +26,7 @@
           <form method="get" id="searchform" onsubmit="goSearch()" action="http://search.aol.com/aol/search">
             <div class="input-group custom-search-form">
               <input type="text" class="form-control" name="q" id="s" value="">
+              <input type="checkbox" id="searchInSite"> 本站搜索
               <span class="input-group-btn">
                 <button class="btn btn-default" type="submit">
                   <i class="fa fa-search"></i>

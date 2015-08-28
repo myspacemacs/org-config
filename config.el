@@ -69,7 +69,6 @@
           '(lambda () (org-defkey org-agenda-mode-map "\C-c\C-x<" 'jw/set-agenda-restriction-lock))
           'append)
 
-(add-hook 'org-babel-after-execute-hook 'jw/display-inline-images 'append)
 (add-hook 'org-clock-out-hook 'jw/clock-out-maybe 'append)
 (add-hook 'org-clock-out-hook 'jw/remove-empty-drawer-on-clock-out 'append)
 (add-hook 'org-export-before-processing-hook 'jw/auto-tex-cmd 'append)
@@ -266,23 +265,6 @@
 (defvar jw/organization-task-id "4005a7cf-fcd9-472d-8a2b-53a19d486439")
 (defvar jw/plantuml-if-count 0)
 (defvar jw/project-list nil)
-
-(org-babel-do-load-languages
- (quote org-babel-load-languages)
- (quote ((R . t)
-         (ditaa . t)
-         (dot . t)
-         (emacs-lisp . t)
-         (gnuplot . t)
-         (latex . t)
-         (ledger . t)
-         (org . t)
-         (plantuml . t)
-         (python . t)
-         (sh . t)
-         ;; (clojure . t)
-         ;; (ruby . t)
-         )))
 
 ;; Resume clocking task when emacs is restarted
 (org-clock-persistence-insinuate)
@@ -512,9 +494,6 @@
 
 (setq org-archive-mark-done nil)
 
-; Make babel results blocks lowercase
-(setq org-babel-results-keyword "results")
-
 (setq org-beamer-environments-extra (quote
                                      (("onlyenv" "O"
                                        "\\begin{onlyenv}%a"
@@ -593,11 +572,6 @@
 
 ;; Set default column view headings: Task Effort Clock_Summary
 (setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
-
-;; Do not prompt to confirm evaluation
-;; This may be dangerous - make sure you understand the consequences
-;; of setting this -- see the docstring for details
-(setq org-confirm-babel-evaluate nil)
 
 (setq org-crypt-disable-auto-save nil)
 
@@ -1153,32 +1127,6 @@
 
 ;;(setq org-ditaa-jar-path "~/.emacs.d/lib/ditaa.jar")
 ;;(setq org-plantuml-jar-path "~/.emacs.d/lib/plantuml.jar")
-(add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
-
-; Make babel results blocks lowercase
-(setq org-babel-results-keyword "results")
-
-(org-babel-do-load-languages
- (quote org-babel-load-languages)
- (quote ((emacs-lisp . t)
-         (dot . t)
-         (ditaa . t)
-         (R . t)
-         (python . t)
-         (ruby . t)
-         (gnuplot . t)
-         (clojure . t)
-         (sh . t)
-         (ledger . t)
-         (org . t)
-         (plantuml . t)
-         (latex . t))))
-
-; Do not prompt to confirm evaluation
-; This may be dangerous - make sure you understand the consequences
-; of setting this -- see the docstring for details
-(setq org-confirm-babel-evaluate nil)
-
 ; Use fundamental mode when editing plantuml blocks with C-c '
 (add-to-list 'org-src-lang-modes (quote ("plantuml" . fundamental)))
 ;; 设置自己的的主题
@@ -1197,3 +1145,29 @@
 ;;  (org-todo "STARTED"))
 
 (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
+
+
+;; settings for babel
+(add-hook 'org-babel-after-execute-hook 'jw/display-inline-images 'append)
+                                        ; Make babel results blocks lowercase
+(setq org-babel-results-keyword "results")
+(org-babel-do-load-languages
+ (quote org-babel-load-languages)
+ (quote ((emacs-lisp . t)
+         (dot . t)
+         (ditaa . t)
+         (R . t)
+         (python . t)
+         (ruby . t)
+         (gnuplot . t)
+         (clojure . t)
+         (sh . t)
+         (ledger . t)
+         (org . t)
+         (plantuml . t)
+         (latex . t))))
+ ; Do not prompt to confirm evaluation
+ ; This may be dangerous - make sure you understand the consequences
+ ; of setting this -- see the docstring for details
+(setq org-confirm-babel-evaluate nil)
+
