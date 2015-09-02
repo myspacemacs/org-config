@@ -1056,8 +1056,3 @@ last month with the Category Foo."
   (op/do-publication nil "HEAD~1" "~/standino.github.com/" nil)
   (op/do-publication nil "HEAD~1" "~/myblog/" nil)
   )
-(defun bh/display-inline-images ()
-  (condition-case nil
-      (org-display-inline-images)
-    (error nil)))
-

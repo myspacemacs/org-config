@@ -1,6 +1,9 @@
 
 
-参考这篇文档： http://doc.norang.ca/org-mode.html
+参考这篇文档：
+- http://doc.norang.ca/org-mode.html
+- http://orgmode.org/guide/Agenda-commands.html
+- http://orgmode.org/manual/Agenda-commands.html
 
 * My day goes generally like this:
 

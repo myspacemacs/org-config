@@ -54,4 +54,7 @@
 (evil-leader/set-key "oO" 'jw/punch-out)
 (evil-leader/set-key "op" 'cw/pub-all)
 (evil-leader/set-key "ob" 'org-iswitchb)
+(evil-leader/set-key "og" 'org-pomodoro)
+
+
 
