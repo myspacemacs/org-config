@@ -18,9 +18,7 @@
     cdlatex
     ledger-mode
     zotelo
-    ox-gfm
     org-page
-    org-plus-contrib
     ))
 
 (setq org-config-excluded-packages '())
@@ -65,16 +63,6 @@
   (use-package zotelo
     :defer t))
 
-(defun org-config/init-ox-gfm ()
-  "Initialize ox-gfm"
-  (use-package ox-gfm
-    :defer t
-    :init (require 'ox-gfm)
-))
-(defun org-config/init-org-plus-contrib ()
-  "Initialize org-plus-contrib"
-  (use-package org-plus-contrib
-    :defer t))
 
 
 ;; often the body of an initialize function uses `use-package'
