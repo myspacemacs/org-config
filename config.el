@@ -1167,3 +1167,7 @@
 
 
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . web-mode))
+
+
+
+(add-to-list 'sql-mysql-login-params '(port :default 3358))
