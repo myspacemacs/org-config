@@ -55,6 +55,8 @@
 (evil-leader/set-key "op" 'cw/pub-all)
 (evil-leader/set-key "ob" 'org-iswitchb)
 (evil-leader/set-key "og" 'org-pomodoro)
+(evil-leader/set-key "os" 'sql-connect)
+
 
 
 
