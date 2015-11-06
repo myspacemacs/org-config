@@ -12,23 +12,17 @@
 
 (setq org-config-packages
   '(
-    ;; package org-configs go here
     bbdb
     boxquote
     cdlatex
     ledger-mode
+    visual-fill-column
     zotelo
     org-page
     ))
 
-(setq org-config-excluded-packages '())
-
-;; For each package, define a function org-config/init-<package-org-config>
-;;
-;; (defun org-config/init-my-package ()
-;;   "Initialize my package"
-;;   )
-;;
+(if (eq system-type 'windows-nt)
+    (push 'ssh-agency org-config-packages))
 
 (defun org-config/init-bbdb ()
   "Initialize bbdb"
@@ -63,8 +57,26 @@
   (use-package zotelo
     :defer t))
 
+(defun org-config/init-ssh-agency ()
+  "Initialize ssh-agency"
+  (use-package ssh-agency
+    :if (eq system-type 'windows-nt)
+    :defer t
+    :config
+    (progn
+      (setq ssh-agency-keys '("~/.ssh/github-key"
+                             "~/.ssh/bitbucket-key")))))
 
+(defun org-config/init-visual-fill-column ()
+  "Initialize visual-fill-column"
+  (use-package visual-fill-column
+    :init
+    (add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
+    ;; 最好将word-wrap的值设为nil，否则中英文混排时换行都发生在英文单词结束处，非常难看。
+    (add-hook 'visual-line-mode-hook
+              '(lambda ()
+                (set (make-local-variable 'word-wrap) nil)))))
 
-;; often the body of an initialize function uses `use-package'
+;; Often the body of an initialize function uses `use-package'
 ;; For more info on `use-package', see readme:
 ;; https://github.com/org-configiegley/use-package

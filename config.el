@@ -1168,6 +1168,6 @@
 
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . web-mode))
 
-
+(setq ispell-dictionary "english") 
 
 ;;(add-to-list 'sql-mysql-login-params '(port :default 3358))
