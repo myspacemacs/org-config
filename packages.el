@@ -12,7 +12,6 @@
 
 (setq org-config-packages
   '(
-    bbdb
     boxquote
     cdlatex
     ledger-mode
@@ -20,9 +19,6 @@
     zotelo
     org-page
     ))
-
-(if (eq system-type 'windows-nt)
-    (push 'ssh-agency org-config-packages))
 
 (defun org-config/init-bbdb ()
   "Initialize bbdb"
