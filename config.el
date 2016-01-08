@@ -1085,7 +1085,7 @@
 
 ;;Org 写文档和记笔记
 (setq op/site-main-title "简单")
-(setq op/site-sub-title "让生活更精彩。")
+(setq op/site-sub-title "多想，多做，多总结。不要怕吃亏。")
 (setq op/site-domain "http://standino.github.io/")
 (setq op/personal-github-link "https://github.com/standino")
 (setq op/personal-disqus-shortname "standino")
@@ -1168,6 +1168,6 @@
 
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . web-mode))
 
+(setq ispell-dictionary "english") 
 
-
-(add-to-list 'sql-mysql-login-params '(port :default 3358))
+;;(add-to-list 'sql-mysql-login-params '(port :default 3358))
