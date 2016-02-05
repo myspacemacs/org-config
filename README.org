@@ -68,13 +68,14 @@ a clock report.
 
 
 * Key bindings
-:LOGBOOK:  
+:LOGBOOK:
+
 CLOCK: [2015-08-20 四 09:37]--[2015-08-20 四 09:40] =>  0:03
 :END:      
 | Key     | For                                             | Used       |
 |---------+-------------------------------------------------+------------|
 | F12     | Agenda (1 key less than C-c a)                  | Very Often |
-| C-c b   | Switch to org file                              | Very Often |
+| C-c b or SPACE o b  | Switch to org file                              | Very Often |
 | F11     | Goto currently clocked item                     | Very Often |
 | C-c c   | Capture a task                                  | Very Often |
 | C-F11   | Clock in a task (show menu with prefix)         | Often      |
@@ -106,3 +107,7 @@ CLOCK: [2015-08-20 四 09:37]--[2015-08-20 四 09:40] =>  0:03
 |  C-u C-u C-c C-x C-i | Now this new task that collects miscellaneous clock minutes when the clock would normally stop. | |
 |F12 < a v m b R | This limits the agenda to this one file | |
 | C-c C-q | The shortcut key is used to add or remove the tag using | |
+
+
+  - SPACE o b 切换 org 文件
+  - SPACE o c 创建任务
