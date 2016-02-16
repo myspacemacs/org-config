@@ -56,7 +56,4 @@
 (evil-leader/set-key "ob" 'org-iswitchb)
 (evil-leader/set-key "og" 'org-pomodoro)
 (evil-leader/set-key "os" 'sql-connect)
-
-
-
-
+(evil-leader/set-key "od" 'duplicate-line)

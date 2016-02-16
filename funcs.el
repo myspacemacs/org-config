@@ -1117,3 +1117,12 @@ version 2014-10-28"
             (start-process "jw/process" "*jw/run-current-file output*" progName fName))
         (message "No recognized program file suffix for this file.")))))
 
+(defun duplicate-line()
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (open-line 1)
+  (next-line 1)
+  (yank)
+)
