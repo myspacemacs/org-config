@@ -509,7 +509,7 @@
   ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
   (setq org-capture-templates
         (quote (("t" "todo" entry (file "~/cwboot/work/refile.org")
-                 "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+                 "* TODO %?\n:PROPERTIES:\n:ESTIMATED: 8\n:ACTUAL: 8\n:OWNER: Will\n:END:\n%U\n%a\n" :clock-in t :clock-resume t)
                 ("r" "respond" entry (file "~/cwboot/work/refile.org")
                  "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
                 ("n" "note" entry (file "~/cwboot/work/refile.org")
