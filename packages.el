@@ -11,19 +11,29 @@
 ;;; License: GPLv3
 
 (setq org-config-packages
-  '(
-    org-page
-    ;; org-crypt
-    ))
+      '(
+        org-page
+        ;; org-crypt
+        s
+        dash
+        helm
+        (helm-org-rifle :location (recipe :fetcher github :repo "alphapapa/helm-org-rifle") )
+        ))
 (defun org-config/init-org-page ()
   "Initialize org-page"
   (use-package org-page
-     :defer t
-     :init (with-eval-after-load 'org
-             (require 'org-page)
-           
-                                 )
+    :defer t
+    :init (with-eval-after-load 'org
+            (require 'org-page)
+            )
     ))
+
+(defun org-config/init-helm-org-rifle()
+  "Initialize org-page"
+  (require 'helm-org-rifle)
+  )
+
+
 ;; (defun org-config/init-org-crypt ()
 ;;   "Initialize org-crypt"
 ;;   (use-package org-crypt
