@@ -57,3 +57,5 @@
 (evil-leader/set-key "og" 'org-pomodoro)
 (evil-leader/set-key "os" 'sql-connect)
 (evil-leader/set-key "od" 'duplicate-line)
+(evil-leader/set-key "of" 'helm-org-rifle)
+(evil-leader/set-key "oF" 'helm-org-rifle-current-buffer)
