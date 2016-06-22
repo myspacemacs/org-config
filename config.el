@@ -1008,3 +1008,5 @@
 
   ;;(add-to-list 'sql-mysql-login-params '(port :default 3358))
   )
+(require 'gtags)
+(setq neo-theme 'nerd)
