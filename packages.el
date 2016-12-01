@@ -16,7 +16,6 @@
         ;; org-crypt
         s
         dash
-        helm
         (helm-org-rifle :location (recipe :fetcher github :repo "alphapapa/helm-org-rifle") )
         ))
 (defun org-config/init-org-page ()
@@ -32,6 +31,18 @@
   "Initialize org-page"
   (require 'helm-org-rifle)
   )
+(defun org-config/init-s()
+  "Initialize org-page"
+  (require 's)
+  )
+
+(defun org-config/init-dash()
+  "Initialize org-page"
+  (require 'dash)
+  )
+
+
+
 
 
 ;; (defun org-config/init-org-crypt ()

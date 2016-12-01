@@ -1053,7 +1053,54 @@ last month with the Category Foo."
 
 (defun cw/pub-all ()
   (interactive)
+  (setq op/category-config-alist
+        '(("blog" ;; this is the default configuration
+           :show-meta t
+           :show-comment t
+           :uri-generator op/generate-uri
+           :uri-template "/blog/html/%y/%m/%d/%t/"
+           :sort-by :date       ;; how to sort the posts
+           :category-index t)   ;; generate category index or not
+         ("about"
+           :show-meta nil
+           :show-comment nil
+           :uri-generator op/generate-uri
+           :uri-template "/about/"
+           :sort-by :date
+           :category-index nil)))
   (op/do-publication nil "HEAD~1" "~/standino.github.com/" nil)
+
+  (setq op/category-config-alist
+        '(("blog" ;; this is the default configuration
+           :show-meta t
+           :show-comment t
+           :uri-generator op/generate-uri
+           :uri-template "/blog/html/%y/%m/%d/%t/"
+           :sort-by :date       ;; how to sort the posts
+           :category-index t)   ;; generate category index or not
+          ("work"
+           :show-meta t
+           :show-comment t
+           :uri-generator op/generate-uri
+           :uri-template "/work/%t/"
+           :sort-by :mod-date
+           :category-index t)
+          ("index"
+           :show-meta nil
+           :show-comment t
+           :uri-generator op/generate-uri
+           :uri-template "/"
+           :sort-by :date
+           :category-index nil)
+          ("about"
+           :show-meta nil
+           :show-comment nil
+           :uri-generator op/generate-uri
+           :uri-template "/about/"
+           :sort-by :date
+           :category-index nil)))
+
+
   (op/do-publication nil "HEAD~1" "~/myblog/" nil)
   )
 (defun jw/shell-command-on-buffer()
